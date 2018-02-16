@@ -94,16 +94,16 @@ const NormalLinks = () => [
   <Link key="2" href="/#speakers">
     <LinkItem href="/#speakers">Speakers</LinkItem>
   </Link>,
-  <Link key="2" href="/#want-to-sponsor">
+  <Link key="3" href="/#want-to-sponsor">
     <LinkItem href="/#want-to-sponsor">Sponsors</LinkItem>
   </Link>,
-  <Link key="3" href="/team">
+  <Link key="4" href="/team">
     <LinkItem href="/team">Team</LinkItem>
   </Link>,
 ]
 
 const Links = () => {
-  if (!process.browser) {
+  if (process.browser !== true) {
     return <NormalLinks />
   }
 
@@ -112,8 +112,6 @@ const Links = () => {
   } else {
     return <NormalLinks />
   }
-
-  return null
 }
 
 const Wrapper = styled.footer`
