@@ -29,7 +29,7 @@ const OrganizersLogos = ({ compact = false }) => (
         rel="noopener noreferrer"
       >
         <LogoImage
-          src="/static/logos/graphcool.svg"
+          src={require('../static/logos/graphcool.svg')}
           alt="Graphcool"
           compact={compact}
           last={true}
