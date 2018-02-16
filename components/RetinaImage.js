@@ -1,17 +1,14 @@
-import ReactRetinaImage from 'react-retina-image'
+import isRetina from 'is-retina'
 
-const RetinaImage = ({ src, checkIfRetinaImgExists, ...props }) => {
-  if (process.browser) {
-    return (
-      <ReactRetinaImage
-        src={src}
-        checkIfRetinaImgExists={checkIfRetinaImgExists}
-        {...props}
-      />
+const RetinaImage = ({ src = [], retina = true, ...props }) =>
+  retina && typeof src !== 'string' ? (
+    isRetina() ? (
+      <img src={src[1]} {...props} />
+    ) : (
+      <img src={src[0]} {...props} />
     )
-  } else {
-    return <img src={src} {...props} />
-  }
-}
+  ) : (
+    <img src={src} {...props} />
+  )
 
 export default RetinaImage
