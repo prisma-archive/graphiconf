@@ -1,8 +1,11 @@
 {
   "name": "graphiconf",
-  "description": "UI components and utils library for graphqlday.org and graphql-europe.org",
+  "description":
+    "UI components and utils library for graphqlday.org and graphql-europe.org",
   "version": "1.1.0",
-  "scripts": {},
+  "scripts": {
+    "release": "standard-version"
+  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
@@ -41,6 +44,7 @@
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-react": "^7.6.1",
     "file-loader": "^1.1.6",
-    "prettier": "^1.10.2"
+    "prettier": "^1.10.2",
+    "standard-version": "^4.3.0"
   }
 }
