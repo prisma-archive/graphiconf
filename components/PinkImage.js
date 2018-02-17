@@ -1,18 +1,20 @@
 import styled, { css } from 'styled-components'
-import isRetina from 'is-retina'
 
 // Local
 import { bgLightPink } from '../utils/colors'
 import { mobile } from '../utils/media'
+import RetinaImage from './RetinaImage'
 
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
 `
 
+export const pinkWidth = 45
 const Pink = styled.div`
   flex: 0 0 auto;
-  width: 45px;
+  order: ${p => (p.pinkAlign === 'start' ? `-1` : `1`)};
+  width: ${pinkWidth}px;
   height: 280px;
   background: url('/static/pink.png');
 `
@@ -25,33 +27,27 @@ const ImageWrapper = styled.div`
 
 export const Bg = styled.div`
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
 
-  width: calc(100% - 75px);
+  width: ${p => p.width || `calc(100% - 75px)`};
   height: 100%;
   background: ${bgLightPink};
+
+  top: 0;
+  bottom: 0;
+  right: ${p => p.right};
+  left: ${p => p.left};
 
   ${mobile(css`
     display: none;
   `)};
 `
 
-const Image = ({ src, retina = true, wrapperProps, ...props }) => (
+const Image = ({ src, retina = true, pinkAlign, wrapperProps, ...props }) => (
   <Wrapper {...wrapperProps}>
     <ImageWrapper>
-      {retina ? (
-        isRetina() ? (
-          <img src={src[1] || src} {...props} />
-        ) : (
-          <img src={src[0] || src} {...props} />
-        )
-      ) : (
-        <img src={src} {...props} />
-      )}
+      <RetinaImage src={src} retina={retina} {...props} />
     </ImageWrapper>
-    <Pink />
+    <Pink pinkAlign={pinkAlign} />
   </Wrapper>
 )
 
