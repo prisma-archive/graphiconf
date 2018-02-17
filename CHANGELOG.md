@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.3.0"></a>
+# [1.3.0](https://github.com/graphcool/graphiconf/compare/v1.2.0...v1.3.0) (2018-02-17)
+
+
+### Features
+
+* **BigSwitch:** add big switch ([93d8625](https://github.com/graphcool/graphiconf/commit/93d8625))
+
+
+
 <a name="1.2.0"></a>
 # [1.2.0](https://github.com/graphcool/graphiconf/compare/v1.1.1...v1.2.0) (2018-02-17)
 
