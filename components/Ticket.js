@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import rem from '../utils/rem'
 import { mobile } from '../utils/media'
-import { boxStyle } from '../utils/mixins'
+import { boxStyle, boxOmniStyle } from '../utils/mixins'
 import Button from '../components/Button'
 import Banner from '../components/Banner'
 
@@ -14,9 +14,10 @@ const VideoHighlight = ({
   comingSoon = false,
   disabled = false,
   buttonLabel = 'Get Tickets',
+  omniStyle = false,
   onSelect = () => {},
 }) => (
-  <Wrapper disabled={disabled}>
+  <Wrapper disabled={disabled} omniStyle={omniStyle}>
     {comingSoon && (
       <ComingSoon>
         <Banner>Coming soon</Banner>
@@ -45,7 +46,7 @@ const Wrapper = styled.div`
   text-align: center;
   color: #1f2228;
 
-  ${boxStyle(true, true)}
+  ${p => boxStyle(true, true, p.omniStyle)}
 
   ${mobile(css`
     padding: ${rem(35)} 0 ${rem(35)} 0;
