@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 
-import { eventbriteLink } from '../utils/config'
 import Container from '../components/Container'
 import SectionTitle from '../components/SectionTitle'
 import SectionContent from '../components/SectionContent'
@@ -9,7 +8,7 @@ import Ticket from '../components/Ticket'
 import { InvisibleAnchor } from '../components/Anchor'
 import TicketsRow from '../components/TicketsRow'
 
-const GetYourTicket = () => [
+const GetYourTicket = ({ eventbriteLink }) => [
   <InvisibleAnchor key="1" id="get-your-ticket-padded" />,
 
   <Wrapper key="2" id="get-your-ticket">

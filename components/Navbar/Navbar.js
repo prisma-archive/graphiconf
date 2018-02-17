@@ -12,7 +12,13 @@ import Sticky from './Sticky'
 const logoHeight = 35
 const mobileLogoHeight = 50
 
-const Navbar = ({ alwaysSticky = false, notSticky = false }) => (
+const Navbar = ({
+  title = 'GraphQL Europe',
+  alwaysSticky = false,
+  notSticky = false,
+  renderNormalLinks,
+  renderAnchorLinks,
+}) => (
   <Sticky alwaysSticky={alwaysSticky} notSticky={notSticky}>
     {({ shouldStick, isVisible, isTransitioning }) => [
       <Placeholder key="1" />,
@@ -31,13 +37,16 @@ const Navbar = ({ alwaysSticky = false, notSticky = false }) => (
                   <LogoWrapper>
                     <Logo />
                   </LogoWrapper>
-                  <Title>GraphQL Europe</Title>
+                  <Title>{title}</Title>
                 </LogoAndTitle>
               </Link>
             </Start>
 
             <End>
-              <NavbarLinks />
+              <NavbarLinks
+                renderNormalLinks={renderNormalLinks}
+                renderAnchorLinks={renderAnchorLinks}
+              />
             </End>
           </FlexWrapper>
         </Container>

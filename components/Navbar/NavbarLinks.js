@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import styled, { css } from 'styled-components'
 import lighten from 'polished/lib/color/lighten'
 import ClickOutHandler from 'react-onclickout'
+import PropTypes from 'prop-types'
 
 import rem from '../../utils/rem'
 import { mobile } from '../../utils/media'
 import { bgLightGrey, specialRed } from '../../utils/colors'
 import { resetButton } from '../../utils/reset'
-import { eventbriteLink } from '../../utils/config'
 import NavItem from './NavItem'
 import { MenuIcon } from '../Icons'
 
@@ -20,17 +20,26 @@ class NavbarLinks extends Component {
     isOpen: false,
   }
 
+  static propTypes = {
+    renderAnchorLinks: PropTypes.func.isRequired,
+    renderNormalLinks: PropTypes.func.isRequired,
+  }
+
   render() {
+    const { renderAnchorLinks, renderNormalLinks } = this.props
     const { isOpen } = this.state
 
     return [
       // Links layout visible on desktop and hidden on mobile
-      <DesktopLinks key="n1">
-        <Links />
+      <DesktopLinks key="1">
+        <Links
+          renderAnchorLinks={renderAnchorLinks}
+          renderNormalLinks={renderNormalLinks}
+        />
       </DesktopLinks>,
 
       // Links layout for mobiles and hidden on desktop
-      <ClickOutHandler key="n2" onClickOut={this.closeNavbar}>
+      <ClickOutHandler key="2" onClickOut={this.closeNavbar}>
         <MobileLinks>
           <IconWrapper active={isOpen} onClick={this.toggleNavbar}>
             <MenuIcon />
@@ -38,7 +47,10 @@ class NavbarLinks extends Component {
 
           {isOpen && (
             <MobileLinksBox>
-              <Links />
+              <Links
+                renderAnchorLinks={renderAnchorLinks}
+                renderNormalLinks={renderNormalLinks}
+              />
             </MobileLinksBox>
           )}
         </MobileLinks>
@@ -61,52 +73,15 @@ class NavbarLinks extends Component {
 
 export default NavbarLinks
 
-const AnchorLinks = () => [
-  // <NavItem key="1" href="https://2017.graphql-europe.org/">2017</NavItem>,
-  <NavItem key="3" href="#call-for-papers" isAnchor={true}>
-    Speak
-  </NavItem>,
-  <NavItem key="4" href="#want-to-sponsor" isAnchor={true}>
-    Sponsor
-  </NavItem>,
-  <NavItem key="5" href="/day">
-    GraphQL Day
-  </NavItem>,
-  <NavItem key="6" href="/team">
-    Team
-  </NavItem>,
-  <NavItem key="7" href={eventbriteLink} isButtonStyle={true}>
-    Get Tickets
-  </NavItem>,
-]
-
-const NormalLinks = () => [
-  <NavItem key="3" href="/#call-for-papers">
-    Speak
-  </NavItem>,
-  <NavItem key="4" href="/#want-to-sponsor">
-    Sponsor
-  </NavItem>,
-  <NavItem key="5" href="/day">
-    GraphQL Day
-  </NavItem>,
-  <NavItem key="6" href="/team">
-    Team
-  </NavItem>,
-  <NavItem key="7" href={eventbriteLink} isButtonStyle={true}>
-    Get Tickets
-  </NavItem>,
-]
-
-const Links = () => {
+const Links = ({ renderAnchorLinks, renderNormalLinks }) => {
   if (!process.browser) {
-    return <NormalLinks />
+    return renderNormalLinks(NavItem)
   }
 
   if (window.location.pathname === '/') {
-    return <AnchorLinks />
+    return renderAnchorLinks(NavItem)
   } else {
-    return <NormalLinks />
+    return renderNormalLinks(NavItem)
   }
 
   return null
