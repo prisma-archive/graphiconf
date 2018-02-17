@@ -1,18 +1,17 @@
 import styled, { css } from 'styled-components'
 import Scrollchor from 'react-scrollchor'
 import Link from 'next/link'
+import PropTypes from 'prop-types'
 
 import rem from '../utils/rem'
 import { textDarkGrey, textGrey } from '../utils/colors'
 import { mobile } from '../utils/media'
-import { eventbriteLink } from '../utils/config'
 import Container from '../components/Container'
 import Newsletter from '../components/Newsletter'
 import OrganizersLogos from '../components/OrganizersLogos'
 import Logo from '../components/Logo'
-import { Twitter, Medium, Mail } from '../components/Icons'
 
-const Footer = () => (
+const Footer = ({ title = 'GraphQL Europe', renderLinks }) => (
   <Wrapper>
     <Container>
       <Newsletter />
@@ -24,42 +23,17 @@ const Footer = () => (
           <Start>
             <LogoWrapper>
               <Logo />
-              <LogoTitle>GraphQL Europe</LogoTitle>
+              <LogoTitle>{title}</LogoTitle>
             </LogoWrapper>
 
-            <Column>
-              <Links />
-            </Column>
-
-            <Column>
-              <LinkItem href="https://api.graphql-europe.org">API</LinkItem>
-              <LinkItem href="/code-of-conduct">Code of Conduct</LinkItem>
-              <LinkItem href="/imprint">Imprint</LinkItem>
-              <LinkItem href="https://github.com/graphcool/graphql-europe-2018">
-                <span>View source</span>
-              </LinkItem>
-            </Column>
-
-            <Column>
-              <LinkItem href="https://twitter.com/graphqleu">
-                <IconWrapper>
-                  <Twitter />
-                </IconWrapper>
-                <span>Twitter</span>
-              </LinkItem>
-              <LinkItem href="https://medium.com/graphql-europe">
-                <IconWrapper medium>
-                  <Medium />
-                </IconWrapper>
-                <span>Medium</span>
-              </LinkItem>
-              <LinkItem href="mailto:support@graphql-europe.org">
-                <IconWrapper>
-                  <Mail />
-                </IconWrapper>
-                <span>Contact us!</span>
-              </LinkItem>
-            </Column>
+            {renderLinks({
+              Link,
+              Column,
+              LinkItem,
+              IconWrapper,
+              AnchorLinkItem,
+              isHomePage,
+            })}
           </Start>
           <End>
             <OrganizersLogos compact={true} />
@@ -70,49 +44,14 @@ const Footer = () => (
   </Wrapper>
 )
 
+Footer.propTypes = {
+  renderLinks: PropTypes.func.isRequired,
+}
+
 export default Footer
 
-const AnchorLinks = () => [
-  <Link key="1" href={eventbriteLink}>
-    <LinkItem href={eventbriteLink}>Get Tickets</LinkItem>
-  </Link>,
-  <AnchorLinkItem key="2" to="#speakers-padded">
-    Speakers
-  </AnchorLinkItem>,
-  <AnchorLinkItem key="3" to="#want-to-sponsor-padded">
-    Sponsors
-  </AnchorLinkItem>,
-  <Link key="4" href="/team">
-    <LinkItem href="/team">Team</LinkItem>
-  </Link>,
-]
-
-const NormalLinks = () => [
-  <Link key="1" href={eventbriteLink}>
-    <LinkItem href={eventbriteLink}>Get Tickets</LinkItem>
-  </Link>,
-  <Link key="2" href="/#speakers">
-    <LinkItem href="/#speakers">Speakers</LinkItem>
-  </Link>,
-  <Link key="3" href="/#want-to-sponsor">
-    <LinkItem href="/#want-to-sponsor">Sponsors</LinkItem>
-  </Link>,
-  <Link key="4" href="/team">
-    <LinkItem href="/team">Team</LinkItem>
-  </Link>,
-]
-
-const Links = () => {
-  if (process.browser !== true) {
-    return <NormalLinks />
-  }
-
-  if (window.location.pathname === '/') {
-    return <AnchorLinks />
-  } else {
-    return <NormalLinks />
-  }
-}
+export const isHomePage = () =>
+  process.browser && window.location.pathname === '/'
 
 const Wrapper = styled.footer`
   border-top: 1px solid #f1f1f1;
