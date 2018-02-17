@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/graphcool/graphiconf/compare/v1.3.0...v2.0.0) (2018-02-17)
+
+
+### Features
+
+* **Footer:**  Extract Footer logic ([b985082](https://github.com/graphcool/graphiconf/commit/b985082))
+* **Navbar:** abstract links and get them by 2 render props ([c9a0b68](https://github.com/graphcool/graphiconf/commit/c9a0b68))
+
+
+### BREAKING CHANGES
+
+* **Footer:** Footer is no longer porvided at /sections
+* **Navbar:** Navbar won't work without 2 render props for links
+
+
+
 <a name="1.3.0"></a>
 # [1.3.0](https://github.com/graphcool/graphiconf/compare/v1.2.0...v1.3.0) (2018-02-17)
 
