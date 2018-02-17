@@ -8,6 +8,7 @@ const sidePadding = 25
 
 const TwinsContainer = ({
   fullWidthOnMobile,
+  reverseOnMobile,
   startWidth,
   endWidth,
   renderStart = () => {},
@@ -25,6 +26,7 @@ const TwinsContainer = ({
         halfDiff={halfDiff}
         width={second}
         justifyContent="flex-start"
+        reverseOnMobile={reverseOnMobile}
         isEnd={true}
       >
         {renderEnd(contentCreator('right', second, fullWidthOnMobile))}
@@ -65,6 +67,7 @@ const Wrapper = styled.div`
 `
 
 const Twin = styled.div`
+  flex-shrink: 1;
   flex-grow: 1;
   flex-basis: auto;
   width: calc(50% ${p => (p.isEnd ? `-` : `+`)} ${p => rem(p.halfDiff)});
@@ -76,6 +79,10 @@ const Twin = styled.div`
     flex: 1 1 auto;
     width: auto;
   }
+
+  ${mobile(css`
+    order: ${p => (p.isEnd && p.reverseOnMobile ? `-1` : `1`)};
+  `)};
 `
 
 export const TwinContent = styled.div`
@@ -99,5 +106,7 @@ export const TwinContent = styled.div`
 
   ${mobile(css`
     width: ${p => (p.fullWidthOnMobile ? '100%' : 'auto')};
+    padding-right: ${p => (p.fullWidthOnMobile ? rem(sidePadding) : undefined)};
+    padding-left: ${p => (p.fullWidthOnMobile ? rem(sidePadding) : undefined)};
   `)};
 `
