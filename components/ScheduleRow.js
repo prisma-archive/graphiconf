@@ -34,7 +34,7 @@ export default ScheduleRow
 
 const renderImagesFromArray = images =>
   images.map((img, i) => {
-    if (img.renderIcon && typeof img.renderIcon === 'function') {
+    if (img.icon || (img.renderIcon && typeof img.renderIcon === 'function')) {
       return <IconWrapper key={i}>{renderIcon()}</IconWrapper>
     } else if (img.src) {
       return (
@@ -113,6 +113,7 @@ const ImageWrapper = IconWrapper.extend`
 const TextsWrapper = styled.div`
   flex: 1 1 auto;
   margin-left: 14px;
+  padding-right: 20px;
 `
 
 const Title = styled.h3`
