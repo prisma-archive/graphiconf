@@ -1,5 +1,6 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
+import { mobile } from '../utils/media'
 import { specialPink, bgLightPink } from '../utils/colors'
 import { normalFont, smallFont } from '../utils/sizes'
 import RetinaImage from './RetinaImage'
@@ -51,6 +52,7 @@ const renderImagesFromArray = images =>
 const height = 75
 
 const Wrapper = styled.div`
+  flex-grow: 1;
   display: flex;
   align-items: center;
   color: ${specialPink};
@@ -59,12 +61,24 @@ const Wrapper = styled.div`
   &:last-child {
     margin-bottom: 0;
   }
+
+  ${mobile(css`
+    flex-direction: column;
+    align-items: stretch;
+  `)};
 `
 
 const Time = styled.div`
   flex: 0 0 130px;
   font-size: 18px;
   font-variant-numeric: tabular-nums;
+  color: #afafaf;
+
+  ${mobile(css`
+    margin-bottom: 8px;
+    margin-top: 8px;
+    flex-basis: auto;
+  `)};
 `
 
 const PinkBox = styled.div`
