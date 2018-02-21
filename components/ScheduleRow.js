@@ -35,8 +35,13 @@ export default ScheduleRow
 
 const renderImagesFromArray = images =>
   images.map((img, i) => {
-    if (img.icon || (img.renderIcon && typeof img.renderIcon === 'function')) {
-      return <IconWrapper key={i}>{renderIcon()}</IconWrapper>
+    if (img.icon) {
+      delete img.icon
+      return (
+        <IconWrapper key={i}>
+          <RetinaImage {...img} />
+        </IconWrapper>
+      )
     } else if (img.src) {
       return (
         <ImageWrapper key={i}>
@@ -103,6 +108,8 @@ const ImagesWrapper = styled.div`
 const IconWrapper = styled.div`
   margin-right: 7px;
   vertical-align: middle;
+  width: 45px;
+  text-align: center;
 
   &:last-child {
     margin-right: 0;
