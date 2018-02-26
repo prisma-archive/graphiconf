@@ -1,7 +1,7 @@
 {
   "name": "graphiconf",
   "description": "UI components and utils library for graphqlday.org and graphql-europe.org",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "scripts": {
     "release": "standard-version"
   },

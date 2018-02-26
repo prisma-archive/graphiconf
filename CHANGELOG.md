@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/graphcool/graphiconf/compare/v2.0.5...v2.1.0) (2018-02-26)
+
+
+### Features
+
+* Move LogoGrid ([55e97b4](https://github.com/graphcool/graphiconf/commit/55e97b4))
+* **Person:** add renderStamp to person ([83308b4](https://github.com/graphcool/graphiconf/commit/83308b4))
+
+
+
 <a name="2.0.5"></a>
 ## [2.0.5](https://github.com/graphcool/graphiconf/compare/v2.0.4...v2.0.5) (2018-02-21)
 
