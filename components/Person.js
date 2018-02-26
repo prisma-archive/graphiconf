@@ -14,6 +14,7 @@ const Person = ({
   bio,
   twitter,
   github,
+  renderStamp,
   blackAndWhite = false,
   noShadow = false,
   ...props
@@ -27,6 +28,7 @@ const Person = ({
         blackAndWhite={blackAndWhite}
       >
         <img src={`${imageUrl}.${imageFormat}`} />
+        {typeof renderStamp === 'function' ? renderStamp() : null}
       </ImageWrapper>
     </Tilt>
 
@@ -64,22 +66,24 @@ const ImageWrapper = styled.div`
   height: ${rem(332)};
   text-indent: -99999px;
   overflow: hidden;
+  position: relative;
 
-  ${boxStyle(false, false)}
-  ${p =>
-    css`
-      ${retinaImage(p.url, 'cover', p.format, undefined, '@2x')};
-    `}
+  ${boxStyle(false, false)} ${p =>
+      css`
+        ${retinaImage(p.url, 'cover', p.format, undefined, '@2x')};
+      `};
+
   ${p =>
     p.blackAndWhite &&
     css`
       filter: saturate(0) brightness(1.02);
-    `}
+    `};
+
   ${p =>
     p.noShadow &&
     css`
       box-shadow: none;
-    `}
+    `};
 
   background-position: center center;
   background-repeat: no-repeat;
@@ -93,7 +97,7 @@ const ImageWrapper = styled.div`
 
   ${mobile(css`
     height: ${rem(251)};
-  `)}
+  `)};
 `
 
 const Content = styled.div`
