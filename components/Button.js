@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components'
 import darken from 'polished/lib/color/darken'
 import lighten from 'polished/lib/color/lighten'
-import Link from 'next/link'
 
 import rem from '../utils/rem'
 import { specialRed } from '../utils/colors'
@@ -12,7 +11,8 @@ const disabledBg = '#D6D6D6'
 const disabledColor = '#999'
 
 export const BaseButton = styled.button`
-  ${resetButton} display: inline-block;
+  ${resetButton};
+  display: inline-block;
   height: ${rem(height)};
   line-height: ${rem(height)};
   padding: 0 ${rem(45)};
@@ -65,11 +65,7 @@ const LinkButton = BaseButton.withComponent('a')
 
 const Button = ({ isLink = false, href, ...props }) => {
   if (isLink) {
-    return (
-      <Link href={href}>
-        <LinkButton href={href} {...props} />
-      </Link>
-    )
+    return <LinkButton href={href} {...props} />
   }
 
   return <BaseButton {...props} />

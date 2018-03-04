@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components'
 
 import rem from '../utils/rem'
 import { mobile } from '../utils/media'
-import { boxStyle, boxOmniStyle } from '../utils/mixins'
+import { boxStyle } from '../utils/mixins'
 import Button from '../components/Button'
 import Banner from '../components/Banner'
 
