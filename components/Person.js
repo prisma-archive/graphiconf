@@ -49,7 +49,7 @@ const Person = ({
           )}
         </Social>
       </FirstRow>
-      <Bio>{bio}</Bio>
+      <Bio>{typeof bio === 'function' ? bio() : bio}</Bio>
     </Content>
   </Wrapper>
 )
