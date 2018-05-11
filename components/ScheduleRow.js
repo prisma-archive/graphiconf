@@ -15,13 +15,16 @@ const ScheduleRow = props => {
         src: [],
       },
     ],
+    bg,
+    color,
+    ...rest
   } = props
 
   return (
-    <Wrapper>
+    <Wrapper {...rest} color={color}>
       <Time>{time}</Time>
-      <PinkBox>
-        <ImagesWrapper>{renderImagesFromArray(images)}</ImagesWrapper>
+      <PinkBox bg={bg}>
+        <ImagesWrapper>{renderImagesFromArray(images, color)}</ImagesWrapper>
         <TextsWrapper>
           <Title>{title}</Title>
           <Desc>{description}</Desc>
@@ -33,13 +36,13 @@ const ScheduleRow = props => {
 
 export default ScheduleRow
 
-const renderImagesFromArray = images =>
+const renderImagesFromArray = (images, color) =>
   images.map((img, i) => {
     if (img.icon) {
-      delete img.icon
+      const { icon, ...restImg } = img
       return (
-        <IconWrapper key={i}>
-          <RetinaImage {...img} />
+        <IconWrapper color={color} key={i}>
+          <RetinaImage {...restImg} />
         </IconWrapper>
       )
     } else if (img.src) {
@@ -60,7 +63,7 @@ const Wrapper = styled.div`
   flex-grow: 1;
   display: flex;
   align-items: center;
-  color: ${specialPink};
+  color: ${p => p.color || specialPink};
   margin-bottom: ${p => p.marginBottom || 16}px;
 
   &:last-child {
@@ -95,7 +98,7 @@ const PinkBox = styled.div`
   align-items: center;
   border-left: 3px solid;
   border-radius: 5px;
-  background: ${bgLightPink};
+  background: ${p => p.bg || bgLightPink};
 `
 
 const ImagesWrapper = styled.div`
@@ -110,6 +113,12 @@ const IconWrapper = styled.div`
   vertical-align: middle;
   width: 45px;
   text-align: center;
+  svg {
+    path {
+      fill: ${p => p.color || 'unset'};
+      stroke: ${p => p.color || 'unset'};
+    }
+  }
 
   &:last-child {
     margin-right: 0;
@@ -147,6 +156,7 @@ const Title = styled.h3`
 const Desc = styled.p`
   padding: 0;
   margin: 3px 0 0 0;
-  color: rgba(16, 20, 33, 0.5);
+  color: currentColor;
+  opacity: 0.8;
   font-size: ${smallFont}px;
 `
