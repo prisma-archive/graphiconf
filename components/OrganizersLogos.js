@@ -24,13 +24,13 @@ const OrganizersLogos = ({ compact = false }) => (
       </XWrapper>
 
       <a
-        href="https://www.graph.cool/"
+        href="https://www.prisma.io/"
         target="_blank"
         rel="noopener noreferrer"
       >
         <LogoImage
-          src={require('../static/logos/graphcool.svg')}
-          alt="Graphcool"
+          src={require('../static/logos/prisma.svg')}
+          alt="Prisma"
           compact={compact}
           last={true}
         />
