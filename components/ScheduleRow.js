@@ -54,7 +54,7 @@ class ScheduleRow extends Component {
             </TextsWrapper>
           </Stack>
           {abstract && (
-            <AnimateHeight duration={250} height={expended ? 0 : 'auto'}>
+            <AnimateHeight duration={250} height={expended ? 'auto' : 0}>
               <Abstract>{abstract}</Abstract>
             </AnimateHeight>
           )}
@@ -109,14 +109,22 @@ const Wrapper = styled.div`
   ${p =>
     p.collapse &&
     css`
-      :after {
-        content: '🔼';
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        opacity: 0.5;
+      cursor: ${p.expended ? 'n-resize' : 's-resize'};
 
-        transform: rotate(${p.expended ? 0 : 180.1}deg);
+      :after {
+        content: ' ';
+        background-image: url('/static/icons/arrow-down.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        opacity: 0.2;
+
+        transition: transform 150ms ease;
+        transform: rotate(${p.expended ? 180.1 : 0}deg);
       }
     `};
 `
