@@ -1,37 +1,67 @@
 import styled, { css } from 'styled-components'
+import AnimateHeight from 'react-animate-height'
+import React, { Component } from 'react'
 
 import { mobile } from '../utils/media'
 import { specialPink, bgLightPink } from '../utils/colors'
 import { normalFont, smallFont } from '../utils/sizes'
 import RetinaImage from './RetinaImage'
 
-const ScheduleRow = props => {
-  const {
-    time = '8:30 - 9:30',
-    title = 'Check-in and Coffee',
-    description = "Don't be late",
-    images = [
-      {
-        src: [],
-      },
-    ],
-    bg,
-    color,
-    ...rest
-  } = props
+class ScheduleRow extends Component {
+  state = {
+    expended: false,
+  }
 
-  return (
-    <Wrapper {...rest} color={color}>
-      <Time>{time}</Time>
-      <PinkBox bg={bg}>
-        <ImagesWrapper>{renderImagesFromArray(images, color)}</ImagesWrapper>
-        <TextsWrapper>
-          <Title>{title}</Title>
-          <Desc>{description}</Desc>
-        </TextsWrapper>
-      </PinkBox>
-    </Wrapper>
-  )
+  toggle = () => {
+    this.setState(prev => ({
+      expended: !prev.expended,
+    }))
+  }
+
+  render(props) {
+    const {
+      time = '8:30 - 9:30',
+      title = 'Check-in and Coffee',
+      description = "Don't be late",
+      images = [
+        {
+          src: [],
+        },
+      ],
+      abstract,
+      bg,
+      color,
+      ...rest
+    } = this.props
+    const { expended } = this.state
+
+    return (
+      <Wrapper
+        {...rest}
+        color={color}
+        collapse={Boolean(abstract)}
+        expended={expended}
+      >
+        <Time>{time}</Time>
+        <PinkBox bg={bg} onClick={this.toggle}>
+          <Stack>
+            <ImagesWrapper>
+              {renderImagesFromArray(images, color)}
+            </ImagesWrapper>
+            <TextsWrapper>
+              <Title>{title}</Title>
+              <Desc>{description}</Desc>
+            </TextsWrapper>
+          </Stack>
+          {abstract && (
+            <AnimateHeight duration={250} height={expended ? 'auto' : 0}>
+              <Abstract>{abstract}</Abstract>
+            </AnimateHeight>
+          )}
+        </PinkBox>
+      </Wrapper>
+    )
+  }
 }
 
 export default ScheduleRow
@@ -65,6 +95,7 @@ const Wrapper = styled.div`
   align-items: center;
   color: ${p => p.color || specialPink};
   margin-bottom: ${p => p.marginBottom || 16}px;
+  position: relative;
 
   &:last-child {
     margin-bottom: 0;
@@ -74,6 +105,28 @@ const Wrapper = styled.div`
     flex-direction: column;
     align-items: stretch;
   `)};
+
+  ${p =>
+    p.collapse &&
+    css`
+      cursor: ${p.expended ? 'n-resize' : 's-resize'};
+
+      :after {
+        content: ' ';
+        background-image: url('/static/icons/arrow-down.svg');
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 14px;
+        height: 14px;
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        opacity: 0.2;
+
+        transition: transform 150ms ease;
+        transform: rotate(${p.expended ? 180.1 : 0}deg);
+      }
+    `};
 `
 
 const Time = styled.div`
@@ -91,14 +144,18 @@ const Time = styled.div`
 
 const PinkBox = styled.div`
   flex: 1 1 auto;
+
+  border-left: 3px solid;
+  border-radius: 5px;
+  background: ${p => p.bg || bgLightPink};
+`
+
+const Stack = styled.div`
   min-height: ${height}px;
   padding: 10px 0;
 
   display: flex;
   align-items: center;
-  border-left: 3px solid;
-  border-radius: 5px;
-  background: ${p => p.bg || bgLightPink};
 `
 
 const ImagesWrapper = styled.div`
@@ -141,7 +198,7 @@ const ImageWrapper = IconWrapper.extend`
 `
 
 const TextsWrapper = styled.div`
-  flex: 1 1 auto;
+  flex: 1 0 auto;
   margin-left: 14px;
   padding-right: 20px;
 `
@@ -159,4 +216,11 @@ const Desc = styled.p`
   color: currentColor;
   opacity: 0.8;
   font-size: ${smallFont}px;
+`
+
+const Abstract = styled.div`
+  width: 100%;
+  padding: 0px 20px 15px;
+  font-size: ${smallFont}px;
+  color: currentColor;
 `
