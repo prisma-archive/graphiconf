@@ -198,7 +198,7 @@ const ImageWrapper = IconWrapper.extend`
 `
 
 const TextsWrapper = styled.div`
-  flex: 1 0 auto;
+  flex: 1 1 auto;
   margin-left: 14px;
   padding-right: 20px;
 `
